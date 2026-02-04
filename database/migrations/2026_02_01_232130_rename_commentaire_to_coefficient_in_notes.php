@@ -21,6 +21,6 @@ return new class extends Migration
     });
 
     // 3. MAINTENANT que la colonne 'coefficient' existe bien, on fait l'update
-    DB::table('notes')->update(['coefficient' => 1]);
+    //DB::table('notes')->update(['coefficient' => 1]);
 }
 };
