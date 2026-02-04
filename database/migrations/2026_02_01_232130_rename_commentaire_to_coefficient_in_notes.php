@@ -8,21 +8,19 @@ use Illuminate\Support\Facades\DB; // Ne pas oublier cet import !
 return new class extends Migration
 {
     public function up(): void
-    {
-        // ÉTAPE 1 : Nettoyage des anciennes données texte
-        // On remplace tous les textes par '1' pour que SQL accepte la conversion en chiffre
-        DB::table('notes')->update(['coefficient' => '1']);
+{
+    Schema::table('notes', function (Blueprint $table) {
+        // 1. Si la colonne s'appelait 'commentaire', on la renomme d'abord
+        // Si elle s'appelle déjà 'coefficient', cette ligne n'est pas nécessaire
+        // $table->renameColumn('commentaire', 'coefficient');
+    });
 
-        // ÉTAPE 2 : On change le type de la colonne
-        Schema::table('notes', function (Blueprint $table) {
-            $table->integer('coefficient')->default(1)->change();
-        });
-    }
+    // 2. On change le type de la colonne en premier pour être sûr qu'elle existe
+    Schema::table('notes', function (Blueprint $table) {
+        $table->integer('coefficient')->default(1)->change();
+    });
 
-    public function down(): void
-    {
-        Schema::table('notes', function (Blueprint $table) {
-            $table->text('coefficient')->nullable()->change();
-        });
-    }
+    // 3. MAINTENANT que la colonne 'coefficient' existe bien, on fait l'update
+    DB::table('notes')->update(['coefficient' => 1]);
+}
 };
