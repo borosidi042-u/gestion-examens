@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="p-6 bg-gray-50 flex justify-end border-t border-gray-100">
-                    <a href="{{ route('note.index') }}" 
+                    <a href="{{ route('note.index') }}"
                     class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-md shadow-lg transition-all uppercase text-xs tracking-widest">
                         Consulter votre résultat
                     </a>
